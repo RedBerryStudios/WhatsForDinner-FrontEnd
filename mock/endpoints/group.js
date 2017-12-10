@@ -5,7 +5,7 @@ const GetGroupEndpoint = {
         app.get("/groups/:groupId", this.handle);
     },
     handle(req, res) {
-        let group = groups.find((g) => g.id == parseInt(req.params.groupId));
+        let group = groups.find((g) => g.id == req.params.groupId);
 
         if (group) {
             group = Object.assign(Object.create(null), group);
@@ -15,7 +15,9 @@ const GetGroupEndpoint = {
 
             res
                 .status(200)
-                .json(group);
+                .json({
+                    group: group
+                });
         } else {
             res.status(404).end();
         }
@@ -48,8 +50,8 @@ const DeleteGroupEndpoint = {
         app.delete("/groups/:groupId", this.handle);
     },
     handle(req, res) {
-        let groupIndex = groups.findIndex((g) => g.id == parseInt(req.params.groupId));
-
+        let groupIndex = groups.findIndex((g) => g.id == req.params.groupId);
+        
         if (groupIndex >= 0) {
             groups.splice(groupIndex, 1);
 
@@ -65,7 +67,7 @@ const PatchGroupEndpoint = {
         app.patch("/groups/:groupId", this.handle);
     },
     handle(req, res) {
-        let groupIndex = groups.findIndex((g) => g.id == parseInt(req.params.groupId));
+        let groupIndex = groups.findIndex((g) => g.id == req.params.groupId);
 
         if (groupIndex >= 0) {
             groups[groupIndex] = Object.assign(groups[groupIndex], req.body);

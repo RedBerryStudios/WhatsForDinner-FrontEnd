@@ -1,3 +1,4 @@
+import Ember from "ember";
 import Application from '@ember/application';
 import Resolver from './resolver';
 import loadInitializers from 'ember-load-initializers';
@@ -10,5 +11,7 @@ const App = Application.extend({
 });
 
 loadInitializers(App, config.modulePrefix);
+
+Ember.run.backburner.DEBUG = true;
 
 export default App;

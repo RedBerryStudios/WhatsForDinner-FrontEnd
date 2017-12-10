@@ -1,0 +1,122 @@
+{
+  "members": [
+    {
+      "id": 1,
+      "name": "Lak.Istvan",
+      "email": "lak.istvan@outlook.com",
+      "group": "TOKEN1"
+    },
+    {
+      "id": 2,
+      "name": "MSN",
+      "email":"atyep95@msn.com",
+      "group": "TOKEN1"
+    },
+    {
+      "id": 3,
+      "name": "GMail",
+      "email":"atyep95@gmail.com",
+      "group": "TOKEN1"
+    }
+  ],
+  "groups": [
+    {
+      "id": "TOKEN1",
+      "name": "Group 1",
+      "members": [
+        1,
+        2,
+        3
+      ],
+      "days": [
+        1
+      ],
+      "lists": [
+        1,
+        2
+      ]
+    }
+  ],
+  "days": [
+    {
+      "id": 1,
+      "date": "2000-01-01",
+      "boards": [
+        1,
+        2
+      ]
+    }
+  ],
+  "lists": [
+    {
+      "id": 1,
+      "name": "Groceries",
+      "elements": [
+        {
+          "id": 1,
+          "ready": true,
+          "text": "Milk"
+        },
+        {
+          "id": 2,
+          "ready": false,
+          "text": "Bread"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Cleaning",
+      "elements": [
+        {
+          "id": 3,
+          "ready": false,
+          "text": "Soap"
+        }
+      ]
+    }
+  ],
+  "boards": [
+    {
+      "id": 1,
+      "name": "Lunch",
+      "elements": [
+        {
+          "id": 1,
+          "name": "Spaghetti",
+          "category": 0,
+          "producer": 1,
+          "subscribers": [
+            1
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Spaghetti",
+          "category": 0,
+          "producer": 1,
+          "subscribers": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Dinner",
+      "elements": [
+        {
+          "id": 3,
+          "name": "KFC",
+          "category": 2,
+          "subscribers": [
+            1,
+            2,
+            3
+          ],
+          "producer": 3
+        }
+      ]
+    }
+  ]
+}

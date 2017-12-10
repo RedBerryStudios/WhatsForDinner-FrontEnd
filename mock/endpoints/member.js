@@ -1,13 +1,17 @@
 var members = require("../storage/member-storage");
+var groups = require("../storage/group-storage");
 
 const GetMemberEndpoint = {
-    GetMemberEndpoint(app) {
-        app.get("/members/:memberId", this.handle);
+    GetMemberEndpoint(router) {
+        router.get("/members/:memberId", this.handle);
     },
     handle(req, res) {
         let member = members.find((m) => m.id == parseInt(req.params.memberId));
         if (member) {
-            res.status(200).json(member);
+            res.status(200).json({
+                members: member,
+                group: groups.find(g => g.id == member.groupId)
+            });
         } else {
             res.status(404).end();
         }
@@ -15,8 +19,8 @@ const GetMemberEndpoint = {
 };
 
 const PostMemberEndpoint = {
-    PostMemberEndpoint(app) {
-        app.post("/members", this.handle);
+    PostMemberEndpoint(router) {
+        router.post("/members", this.handle);
     },
     handle(req, res) {
         let newMember = req.body;
@@ -35,8 +39,8 @@ const PostMemberEndpoint = {
 };
 
 const PatchMemberEndpoint = {
-    PatchMemberEndpoint(app) {
-        app.patch("/members/:memberId", this.handle);
+    PatchMemberEndpoint(router) {
+        router.patch("/members/:memberId", this.handle);
     },
     handle(req, res) {
         let memberIndex = members.findIndex((m) => m.id == parseInt(req.params.memberId));
@@ -48,8 +52,8 @@ const PatchMemberEndpoint = {
 };
 
 const DeleteMemberEndpoint = {
-    DeleteMemberEndpoint(app) {
-        app.delete("/members/:memberId", this.handle);
+    DeleteMemberEndpoint(router) {
+        router.delete("/members/:memberId", this.handle);
     },
     handle(req, res) {
         let memberIndex = members.findIndex((m) => m.id == parseInt(req.params.memberId));
@@ -64,18 +68,18 @@ const DeleteMemberEndpoint = {
     }
 };
 
-function registerEndpoints(app) {
+function registerEndpoints(router) {
     let getMemberEndpoint = Object.create(GetMemberEndpoint);
-    getMemberEndpoint.GetMemberEndpoint(app);
+    getMemberEndpoint.GetMemberEndpoint(router);
 
     let postMemberEndpoint = Object.create(PostMemberEndpoint);
-    postMemberEndpoint.PostMemberEndpoint(app);
+    postMemberEndpoint.PostMemberEndpoint(router);
 
     let patchMemberEndpoint = Object.create(PatchMemberEndpoint);
-    patchMemberEndpoint.PatchMemberEndpoint(app);
+    patchMemberEndpoint.PatchMemberEndpoint(router);
 
     let deleteMemberEndpoint = Object.create(DeleteMemberEndpoint);
-    deleteMemberEndpoint.DeleteMemberEndpoint(app);
+    deleteMemberEndpoint.DeleteMemberEndpoint(router);
 }
 
 module.exports = {

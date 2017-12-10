@@ -1,0 +1,33 @@
+$member-image-size-small: 25px;
+
+$member-image-size-big: 50px;
+
+.member-component {
+    font-size: 1em;    
+}
+
+.member-component-small {
+    @extend .member-component;
+
+    .member-image {
+        width: $member-image-size-small;
+        height: $member-image-size-small;
+        border-radius: $member-image-size-small;
+        background-size: 100% 100%;
+    }
+}
+
+.member-component-big {
+    @extend .member-component;
+
+    .member-image {
+        width: $member-image-size-big;
+        height: $member-image-size-big;
+        border-radius: $member-image-size-big;
+        background-size: 100% 100%;
+    }
+
+    .member-name {
+        font-size: 1.5rem;
+    }
+}

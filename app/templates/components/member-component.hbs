@@ -1,0 +1,6 @@
+<div class="member-component d-inline {{if isSmall 'member-component-small' 'member-component-big'}}">
+    <div class="member-image align-middle d-inline-block" data-toggle="tooltip" title="{{member.name}}" style="background-image: url('{{if member.pictureLink member.pictureLink '/images/defaultPerson.png'}}');"></div>
+    {{#if showName}}
+    <span class="member-name ml-2 pr-4">{{member.name}}</span>
+    {{/if}}
+</div>

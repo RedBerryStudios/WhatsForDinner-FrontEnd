@@ -1,0 +1,66 @@
+<div class="w-75 mx-auto pb-5">
+    <div class="display-2">Checklists</div>
+
+    {{#each checklists as |list|}}
+        <div class="list-component mt-3 mb-5 p-3 bg-light text-dark">
+            <div class="d-flex align-items-center">
+                <div class="col-10 display-4 mb-3 p-0">{{list.name}}</div>
+                <div class="col-2 p-0 text-right">
+                    <button class="btn btn-outline-danger btn-lg" onclick={{action "deleteList" list}}><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                </div>
+            </div>
+            <ul class="list-group">
+            {{#each list.elements as |element index|}}
+                <li class="list-group-item d-flex">
+                    <div class="col-11 p-0 pr-1">
+                        <input type="checkbox" checked={{element.isComplete}} onchange={{action 'stateChange' list element}}/>
+                        <span class="list-element-text h5 {{if element.isComplete 'complete text-muted'}}">{{element.text}}</span>
+                    </div>
+                    <div class="col-1 p-0 text-right">
+                        <button class="btn btn-outline-danger" onclick={{action "deleteElement" list index}}><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                    </div>
+                </li>
+            {{/each}}
+                <li class="list-group-item">
+                    <div class="input-group">
+                        <div class="input-group-addon text-light bg-primary">New item:</div>
+                        {{input value=list.newElementText class="form-control" placeholder="Write your new item content here ..."}}
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-primary" {{action "addElement" list}}>
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    {{/each}}
+
+    <button class="btn btn-primary btn-lg btn-block w-75 mx-auto" data-toggle="modal" data-target="#createListModal">Add new checklist</button>
+    <div id="createListModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content text-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add new checklist</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group w-75 m-auto">
+                        <span class="input-group-addon" id="newGroupNameLabel">Checklist name: </span>
+                        {{input type="text" value=newListName class="form-control" id="newListName" aria-describedby="newGroupNameLabel"}}
+                    </div>
+                </div>
+                <div class="modal-footer w-100 d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary" {{action "addList"}}>
+                        <i class="fa fa-plus" aria-hidden="true"></i> Create
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

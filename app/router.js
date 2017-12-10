@@ -7,8 +7,11 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('shopping-lists');
+  this.route('checklists');
   this.route('days');
+  this.route('login');
+  this.route('me');
+  this.route('callback');
 });
 
 export default Router;

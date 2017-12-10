@@ -5,7 +5,7 @@ const GetDaysEndpoint = {
         app.get("/groups/:groupId/days/:date", this.handle);
     },
     handle(req, res) {
-        let group = groups.find((g) => g.id == parseInt(req.params.groupId));
+        let group = groups.find((g) => g.id == req.params.groupId);
         if (group) {
             let day = group.days.find((d) => d.date == req.params.date);
             if (day) {
@@ -24,7 +24,7 @@ const PatchDaysEndpoint = {
         app.patch("/groups/:groupId/days/:date/boards/:boardId", this.handle);
     },
     handle(req, res) {
-        let group = groups.find(g => g.id == parseInt(req.params.groupId));
+        let group = groups.find(g => g.id == req.params.groupId);
         if (group) {
             let day = group.days.find(d => d.date == req.params.date);
             if (day) {

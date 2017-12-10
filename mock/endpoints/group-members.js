@@ -1,15 +1,16 @@
 let groups = require("../storage/group-storage");
+let members = require("../storage/member-storage");
 
 const GetMembersEndpoint = {
     GetMembersEndpoint(app) {
         app.get("/groups/:groupId/members", this.handle);
     },
     handle(req, res) {
-        let group = groups.find((g) => g.id == parseInt(req.params.groupId));
+        let group = groups.find((g) => g.id == req.params.groupId);
 
         if (group) {
             res.status(200).json({
-                members: group.members
+                members: members.filter(m => group.members.find(mId => mId == m.id))
             });
         } else {
             res.status(404).end();
@@ -23,7 +24,7 @@ const PostMembersEndpoint = {
     },
     handle(req, res) {
         if ("memberId" in req.body) {
-            let group = groups.find((g) => g.id == parseInt(req.params.groupId));
+            let group = groups.find((g) => g.id == req.params.groupId);
             if (group) {
                 if (group.members.find(m => m == req.body.memberId)) {
                     group.members.push(req.body.memberId);
@@ -43,7 +44,7 @@ const DeleteMembersEndpoint = {
         app.delete("/groups/:groupId/members/:memberId", this.handle);
     },
     handle(req, res) {
-        let group = groups.find((g) => g.id == parseInt(req.params.groupId));
+        let group = groups.find((g) => g.id == req.params.groupId);
         if (group) {
             let memberIndex = group.members.findIndex((m) => m == parseInt(req.params.memberId));
             if (memberIndex >= 0) {

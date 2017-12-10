@@ -1,0 +1,103 @@
+<div class="w-75 mx-auto mb-5">
+    <div class="display-2 mb-4">
+        Profile
+    </div>  
+    <div class="row mb-5">
+        <div class="col-3">
+            <div id="profileImage" class="" style="width:200px;height:200px;background: url({{member.pictureLink}}) no-repeat;background-size:100% auto;border-radius: 200px;"></div>
+        </div>
+        <div class="col">
+            <form>
+                <div class="form-group row">
+                    <label for="name" class="col-sm-2 col-form-label col-form-label-lg">Name:</label>
+                    <div class="col-sm-10">
+                        {{input value=member.name class="form-control form-control-lg" id="name" placeholder="Name"}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="email" class="col-sm-2 col-form-label col-form-label-lg">E-mail:</label>
+                    <div class="col-sm-10">
+                        <input type="email" value={{member.email}} 
+                            class="form-control-plaintext form-control-lg w-100 pl-3 text-light border border-light"
+                            id="email" placeholder="E-mail" readonly disabled="true" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-lg"></label>
+                    <button class="btn btn-primary btn-lg mx-auto w-25" {{action "saveMemberDetails" }}>
+                        <i class="fa fa-save" aria-hidden="true"></i> Save
+                    </button>
+                </div>
+                <div class="form-group row">
+                    <label for="group" class="col-sm-2 col-form-label col-form-label-lg">Group:</label>
+                    <div class="col-sm-10 d-flex justify-content-between">
+                        {{#if isNotInGroup}}
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createGroupModal">Create group</button>
+                            <label class="col-form-label-lg pb-0">or</label>
+                            <div class="input-group w-50">
+                                {{input value=joinToken class="form-control" placeholder="Join group" aria-label="Join group"}}
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary btn-lg" type="button" {{action "joinGroup"}}>Join</button>
+                                </span>
+                            </div>
+                        {{else}}
+                            <div class="w-100 d-flex flex-column">
+                                <div class="input-group mb-3 h4">
+                                    <span class="input-group-addon w-25" id="groupName">Group name: </span>
+                                    <input type="text" value={{group.name}} 
+                                        class="form-control-plaintext pl-3 w-75 text-light border border-left-0 border-light rounded-right" 
+                                        aria-describedby="groupName" readonly disabled="true">
+                                </div>
+                                <div class="input-group mb-3 h4">
+                                    <span class="input-group-addon w-25" id="groupToken">Join token: </span>
+                                    <input type="text" value={{group.joinToken}} 
+                                        class="form-control-plaintext pl-3 w-75 text-light border border-left-0 border-light rounded-right"
+                                        aria-describedby="groupToken" readonly disabled="true">
+                                </div>
+                                <div class="input-group mb-3 h4">
+                                    <span class="input-group-addon w-25" id="members">Members: </span>
+                                    <div class="w-75 pl-3 border border-left-0 border-light rounded-right p-2">
+                                        {{#each group.members as |member|}}
+                                            {{member-component member=member onlyImage=true class="d-inline" size="big"}}
+                                        {{/each}}
+                                    </div>
+                                </div>
+                                <button class="btn btn-danger btn-lg w-50 mx-auto" {{action "leaveGroup" }}>
+                                    <i class="fa fa-sign-out" aria-hidden="true"></i> Leave group
+                                </button>
+                            </div>
+                        {{/if}}
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+    <div id="createGroupModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content text-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create new group</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group w-75 m-auto">
+                        <span class="input-group-addon" id="newGroupName">Group name: </span>
+                        {{input type="text" value=newGroupName class="form-control" id="newGroupName" aria-describedby="newGroupName"}}
+                    </div>
+                    <span>You will have to log in again, after the group is created.</span>
+                </div>
+                <div class="modal-footer w-100 d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary" {{action "createNewGroup"}}>
+                        <i class="fa fa-plus" aria-hidden="true"></i> Create
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

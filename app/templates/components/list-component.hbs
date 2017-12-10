@@ -1,0 +1,14 @@
+<div class="list-component w-75 mt-5 mb-5 mx-auto p-3 bg-light text-dark">
+    <div class="list-name display-4 mb-3">{{list.name}}</div>
+    <ul class="list-group">
+    {{#each list.elements as |element|}}
+        <li class="list-group-item">
+            {{input checked=element.ready type="checkbox" class="list-element-state"}}
+            <span class="list-element-text {{if element.ready 'complete text-muted'}}">{{element.text}}</span>
+        </li>
+    {{/each}}
+        <button type="button" class="btn btn-secondary btn-lg btn-block" {{action "addElement" list}} style="border-top-left-radius: 0; border-top-right-radius: 0;">
+            <i class="fa fa-plus-circle"></i>
+        </button>
+    </ul>
+</div>

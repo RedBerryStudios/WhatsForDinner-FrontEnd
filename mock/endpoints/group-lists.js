@@ -5,7 +5,7 @@ const GetListsEndpoint = {
         app.get("/groups/:groupId/lists", this.handle);
     },
     handle(req, res) {
-        let group = groups.find(g => g.id == parseInt(req.params.groupId));
+        let group = groups.find(g => g.id == req.params.groupId);
         if (group) {
             res.status(200).json(group.lists);
         } else {
@@ -19,7 +19,7 @@ const PostListsEndpoint = {
         app.post("/groups/:groupId/lists", this.handle);
     },
     handle(req, res) {
-        let group = groups.find(g => g.id == parseInt(req.params.groupId));
+        let group = groups.find(g => g.id == req.params.groupId);
         if (group) {
             let newList = req.body;
 
@@ -44,7 +44,7 @@ const PatchListsEndpoint = {
         app.patch("/groups/:groupId/lists/:listId", this.handle);
     },
     handle(req, res) {
-        let group = groups.find(g => g.id == parseInt(req.params.groupId));
+        let group = groups.find(g => g.id == req.params.groupId);
         if (group) {
             let list = group.lists.find(l => l.id == parseInt(req.params.listId));
             if (list) {
@@ -64,7 +64,7 @@ const DeleteListsEndpoint = {
         app.delete("/groups/:groupId/lists/:listId", this.handle);
     },
     handle(req, res) {
-        let group = groups.find(g => g.id == parseInt(req.params.groupId));
+        let group = groups.find(g => g.id == req.params.groupId);
         if (group) {
             let listIndex = group.lists.findIndex(l => l.id == parseInt(req.params.listId));
             if (listIndex >= 0) {

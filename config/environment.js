@@ -1,7 +1,7 @@
 /* eslint-env node */
 'use strict';
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'whats-for-dinner-front-end',
     environment,
@@ -21,15 +21,29 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    }
+    },
+
+    torii: {
+      allowUnsafeRedirect: true,
+      providers: {
+        'facebook-oauth2': {
+          apiKey: '204469666764169'
+        },
+        'google-oauth2': {
+          apiKey: '967673291077-avuo2a78dhka1k3ht19l6dblsjn3gsj6.apps.googleusercontent.com',
+          redirectUri: "http://localhost/oauth2callback"
+        }
+      }
+    },
+
   };
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
-    // ENV.APP.LOG_ACTIVE_GENERATION = true;
-    // ENV.APP.LOG_TRANSITIONS = true;
-    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
-    // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.APP.LOG_ACTIVE_GENERATION = true;
+    ENV.APP.LOG_TRANSITIONS = true;
+    ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
+    ENV.APP.LOG_VIEW_LOOKUPS = true;
   }
 
   if (environment === 'test') {
